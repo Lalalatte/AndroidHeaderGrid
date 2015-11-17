@@ -1,6 +1,6 @@
 # AdnroidHeaderGrid
 **AdnroidHeaderGrid** is a GridView with top and left header.
 
-![](iamges/device-2015-11-17-103626.png)
+![](images/device-2015-11-17-103626.png)
 
 test
