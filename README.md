@@ -3,4 +3,9 @@
 
 ![](images/device-2015-11-17-103626.png)
 
-test
+Features
+------------
+* Horizontal and vertical scrolling
+* Multiselect
+* Left and top header while Scrolling
+* Clickable top header
