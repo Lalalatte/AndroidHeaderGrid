@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/state_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.grid.cuiletian.library.NoInterceptHorizontalScrollView
+            android:id="@+id/myscrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdge="none"
+            android:fillViewport="true"
+            android:overScrollMode="never">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <GridView
+                    android:id="@+id/content_grid"
+                    android:layout_width="1000dp"
+                    android:layout_height="match_parent"
+                    android:descendantFocusability="blocksDescendants"
+                    android:fadingEdge="none"
+                    android:horizontalSpacing="1px"
+                    android:listSelector="@null"
+                    android:verticalSpacing="1px" />
+
+            </FrameLayout>
+
+        </com.grid.cuiletian.library.NoInterceptHorizontalScrollView>
+
+    </FrameLayout>
+
+</RelativeLayout>
