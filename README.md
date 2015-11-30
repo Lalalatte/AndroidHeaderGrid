@@ -1,5 +1,5 @@
-# AdnroidHeaderGrid
-**AdnroidHeaderGrid** is a GridView with top and left header.
+# AndroidHeaderGrid
+**AndroidHeaderGrid** is a GridView with top and left header.
 
 ![](images/device-2015-11-17-103626.png)
 
