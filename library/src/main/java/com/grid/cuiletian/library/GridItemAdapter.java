@@ -16,10 +16,10 @@ import java.util.List;
  */
 public class GridItemAdapter extends BaseAdapter {
 
-    private LayoutInflater layoutInflater;
+    private final LayoutInflater layoutInflater;
     private ViewHolder holder;
-    private Context mContext;
-    List<GridContent> contentList;
+    private final Context mContext;
+    private final List<GridContent> contentList;
 //    List<Boolean> selectList;
 
     public GridItemAdapter(Context context, List<GridContent> list) {
@@ -53,7 +53,7 @@ public class GridItemAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (null == convertView) {
             holder = new ViewHolder();
-            convertView = layoutInflater.inflate(R.layout.grid_item, null);
+            convertView = layoutInflater.inflate(R.layout.grid_item, parent, false);
             convertView.setLayoutParams(new GridView.LayoutParams(ScreenUtil.dip2px(mContext, 70), ScreenUtil.dip2px(mContext, 65)));
 
             holder.contentTv = (TextView) convertView.findViewById(R.id.content);

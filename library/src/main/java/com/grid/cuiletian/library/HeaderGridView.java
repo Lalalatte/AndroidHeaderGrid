@@ -31,17 +31,16 @@ public class HeaderGridView extends RelativeLayout {
     private int mHeaderRowHeight;
     private int mHeaderColumnWidth;
     private int mHeaderColumnHeight;
-    private float mHorizontalDivider = 1;
-    private float mVerticalDivider = 1;
-    private int mMargin = 8;
+    private final float mHorizontalDivider = 1;
+    private final float mVerticalDivider = 1;
+    private int mDateMargin = 8;
 
-    private PointF mCurrentOrigin = new PointF(0f, 0f);
+    private final PointF mCurrentOrigin = new PointF(0f, 0f);
     private Paint mHeaderBackGroundPainter;
     private Paint mStrokePainter;
     private TextPaint mHolidayTextPaint;
     private TextPaint mNamePaint;
-    private TextPaint mTxt_aa_12Paint;
-    private TextPaint mHeaderDirtyPaint;
+    private TextPaint mWeekDayTextPaint;
     private int mDateTextSize;
     private int mDirtyTextSize;
     private int mRoomNumTextSize;
@@ -50,7 +49,7 @@ public class HeaderGridView extends RelativeLayout {
     private float mTextWidth = 0;
     private float mTextHeight = 0;
     private float mDayOfWeekWidth;
-    private Context mContext;
+    private final Context mContext;
 
     private GridView grid;
     private List<String> tittles;
@@ -81,6 +80,7 @@ public class HeaderGridView extends RelativeLayout {
             mHeaderColumnWidth = a.getDimensionPixelOffset(R.styleable.HeaderGridView_columnWidth, mHeaderColumnWidth);
             mHeaderRowHeight = a.getDimensionPixelOffset(R.styleable.HeaderGridView_header_row_height, mHeaderRowHeight);
             mHeaderColumnHeight = a.getDimensionPixelOffset(R.styleable.HeaderGridView_header_column_height, mHeaderRowHeight) + 1;
+            mDateMargin = a.getDimensionPixelOffset(R.styleable.HeaderGridView_date_margin, mDateMargin);
             mDateTextSize = a.getDimensionPixelSize(R.styleable.HeaderGridView_date_txt_size, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, mDateTextSize, context.getResources().getDisplayMetrics()));
             mDirtyTextSize = a.getDimensionPixelSize(R.styleable.HeaderGridView_dirty_txt_size, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, mDirtyTextSize, context.getResources().getDisplayMetrics()));
             mRoomNumTextSize = a.getDimensionPixelSize(R.styleable.HeaderGridView_room_num_txt_size, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, mRoomNumTextSize, context.getResources().getDisplayMetrics()));
@@ -103,18 +103,14 @@ public class HeaderGridView extends RelativeLayout {
         mNamePaint = new TextPaint();
         mNamePaint.setColor(getResources().getColor(R.color.grey_3));
         mNamePaint.setAntiAlias(true);
-        mTxt_aa_12Paint = new TextPaint();
-        mTxt_aa_12Paint.setColor(getResources().getColor(R.color.grey_a));
-        mTxt_aa_12Paint.setAntiAlias(true);
-        mHeaderDirtyPaint = new TextPaint();
-        mHeaderDirtyPaint.setColor(getResources().getColor(R.color.grey_a));
-        mHeaderDirtyPaint.setAntiAlias(true);
+        mWeekDayTextPaint = new TextPaint();
+        mWeekDayTextPaint.setColor(getResources().getColor(R.color.grey_a));
+        mWeekDayTextPaint.setAntiAlias(true);
         mDateTextSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 13, getResources().getDisplayMetrics());
         float textSize_12 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, getResources().getDisplayMetrics());
         float textSize_10 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
         mNamePaint.setTextSize(mDateTextSize);
-        mTxt_aa_12Paint.setTextSize(textSize_12);
-        mHeaderDirtyPaint.setTextSize(textSize_10);
+        mWeekDayTextPaint.setTextSize(textSize_12);
         mHolidayTextPaint = new TextPaint();
         mHolidayTextPaint.setTextSize(mDateTextSize);
         mHolidayTextPaint.setAntiAlias(true);
@@ -184,18 +180,18 @@ public class HeaderGridView extends RelativeLayout {
         canvas.drawRect(0, 0, getWidth(), mHeaderRowHeight, mHeaderBackGroundPainter);
 
         // 第一行的房间名
-        for (int roomNum = mFirstVisibleTittle; roomNum < mFirstVisibleTittle + mVisibleTittleNum; roomNum++) {
-            int left = (mHeaderColumnWidth + (int) mCurrentOrigin.x + mColumnWidth * roomNum + 1 * roomNum);//mCurrentOrigin.x < 0
+        for (int tittleNum = mFirstVisibleTittle; tittleNum < mFirstVisibleTittle + mVisibleTittleNum; tittleNum++) {
+            int left = (int) (mHeaderColumnWidth + (int) mCurrentOrigin.x + mColumnWidth * tittleNum + mHorizontalDivider * tittleNum);//mCurrentOrigin.x < 0
 
             //分割线
             canvas.drawRect(left, 0, left + mHorizontalDivider, mHeaderRowHeight, mStrokePainter);
 
             String tittleStr = "";
-            if (tittles != null && roomNum < tittles.size()) {
-                tittleStr = tittles.get(roomNum);
+            if (tittles != null && tittleNum < tittles.size()) {
+                tittleStr = tittles.get(tittleNum);
             }
 
-            if (left < getWidth() && roomNum < tittles.size()) {
+            if (left < getWidth() && tittleNum < tittles.size()) {
                 Rect rect = new Rect();
                 mNamePaint.getTextBounds(tittleStr, 0, tittleStr.length(), rect);
                 mTextWidth = mNamePaint.measureText(tittleStr);
@@ -223,25 +219,25 @@ public class HeaderGridView extends RelativeLayout {
 
             // Draw the day labels.
             // 画日期
-            String dayLabel = "";
+            String dateLabel = "";
             String dayOfWeek = "";
             boolean isHoliday = false;
             if (days != null && dayNumber >= 0 && dayNumber < days.size()) {
-                dayLabel = days.get(dayNumber).getDateDisplay();
+                dateLabel = days.get(dayNumber).getDateDisplay();
                 isHoliday = days.get(dayNumber).isHoliday();
                 dayOfWeek = days.get(dayNumber).getDayOfWeek();
             }
 
             Rect rect = new Rect();
-            mNamePaint.getTextBounds(dayLabel, 0, dayLabel.length(), rect);
-            mTextWidth = mNamePaint.measureText(dayLabel);
+            mNamePaint.getTextBounds(dateLabel, 0, dateLabel.length(), rect);
+            mTextWidth = mNamePaint.measureText(dateLabel);
             mTextHeight = rect.height();
 
-            mTxt_aa_12Paint.getTextBounds(dayOfWeek, 0, dayOfWeek.length(), rect);
-            mDayOfWeekWidth = mTxt_aa_12Paint.measureText(dayOfWeek);
+            mWeekDayTextPaint.getTextBounds(dayOfWeek, 0, dayOfWeek.length(), rect);
+            mDayOfWeekWidth = mWeekDayTextPaint.measureText(dayOfWeek);
 
-            canvas.drawText(dayLabel, ScreenUtil.dip2px(mContext, mMargin), startPixel + ScreenUtil.dip2px(mContext, mMargin) + mTextHeight, mNamePaint);
-            canvas.drawText(dayOfWeek, ScreenUtil.dip2px(mContext, mMargin), startPixel + ScreenUtil.dip2px(mContext, mMargin) + mTextHeight + ScreenUtil.dip2px(mContext, mMargin) + mTextHeight, isHoliday ? mHolidayTextPaint : mTxt_aa_12Paint);
+            canvas.drawText(dateLabel, ScreenUtil.dip2px(mContext, mDateMargin), startPixel + ScreenUtil.dip2px(mContext, mDateMargin) + mTextHeight, mNamePaint);
+            canvas.drawText(dayOfWeek, ScreenUtil.dip2px(mContext, mDateMargin), startPixel + ScreenUtil.dip2px(mContext, mDateMargin) + mTextHeight + ScreenUtil.dip2px(mContext, mDateMargin) + mTextHeight, isHoliday ? mHolidayTextPaint : mWeekDayTextPaint);
             startPixel += mHeaderColumnHeight;
         }
 
@@ -253,11 +249,13 @@ public class HeaderGridView extends RelativeLayout {
         return true;
     }
 
-    int mTouchSlop;
-    float offsetX;
-    float offsetY;
-    float startX, startY;
-    float lastX, lastY;
+    private int mTouchSlop;
+    private float offsetX;
+    private float offsetY;
+    private float startX;
+    private float startY;
+    private float lastX;
+    private float lastY;
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {

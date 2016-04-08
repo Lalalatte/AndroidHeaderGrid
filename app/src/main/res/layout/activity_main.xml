@@ -13,6 +13,7 @@
         app:date_txt_size="13sp"
         app:header_column_height="65dp"
         app:header_row_height="50dp"
+        app:date_margin="4dp"
         app:header_background_color="@color/header_background"/>
 
 

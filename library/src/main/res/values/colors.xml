@@ -12,15 +12,4 @@
     <color name="state_header_booking">#8c9eff</color>
     <color name="red_hotel_remark">#ff8a80</color>
 
-    <!--grid item background colr-->
-    <!--from http://www.smartisan.com-->
-    <color name="karekusairo">#e7dd91</color>
-    <color name="sekitiku">#ebacbf</color>
-    <color name="otiguri">#7c3012</color>
-    <color name="sabiseiji">#a2c8b3</color>
-    <color name="hatobamurasaki">#96869c</color>
-    <color name="yanagisusutaketya">#5a6357</color>
-    <color name="ensyuunezu">#d0836c</color>
-    <color name="suoh">#8e354a</color>
-
 </resources>

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="HeaderGridView">
-        <attr name="columnWidth" format="dimension"/>
-        <attr name="header_row_height" format="dimension"/>
-        <attr name="header_column_height" format="dimension"/>
+        <attr name="columnWidth" format="dimension|reference"/>
+        <attr name="header_row_height" format="dimension|reference"/>
+        <attr name="header_column_height" format="dimension|reference"/>
+        <attr name="date_margin" format="dimension|reference"/>
 
         <!--字号-->
-        <attr name="date_txt_size" format="dimension"/>
-        <attr name="dirty_txt_size" format="dimension"/>
-        <attr name="room_num_txt_size" format="dimension"/>
+        <attr name="date_txt_size" format="dimension|reference"/>
+        <attr name="dirty_txt_size" format="dimension|reference"/>
+        <attr name="room_num_txt_size" format="dimension|reference"/>
 
         <attr name="header_background_color" format="color"/>
     </declare-styleable>
