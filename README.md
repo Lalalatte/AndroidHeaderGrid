@@ -1,8 +1,7 @@
 # AndroidHeaderGrid
 **AndroidHeaderGrid** is a GridView with top and left header.
 
-![](images/device-2015-11-17-103626.png)
-
+![image](https://github.com/Lalalatte/AndroidHeaderGrid/blob/master/images/device-2016-09-06-195906.gif)
 Features
 ------------
 * Horizontal and vertical scrolling
