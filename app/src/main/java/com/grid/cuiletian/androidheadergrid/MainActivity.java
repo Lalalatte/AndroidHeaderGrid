@@ -69,8 +69,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void initData() {
-        int gridSize = 200;
-        int tittleSize = 8;
+        int gridSize = 2000;
+        int tittleSize = 16;
         int dayNum = gridSize / tittleSize;
         for (int i = 0; i < gridSize; i++){
             GridContent content = new GridContent();
@@ -100,7 +100,7 @@ public class MainActivity extends ActionBarActivity {
             Day day = new Day();
             day.setDayOfWeek(getDayOfWeek(calendarDay));
             day.setDateDisplay(formatCalendar(calendarDay));
-            day.setIsHoliday(calendarDay.get(Calendar.DAY_OF_WEEK) == 7 || calendarDay.get(Calendar.DAY_OF_WEEK) == 1);
+            day.setIsHoliday(calendarDay.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY || calendarDay.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY);
             days.add(day);
             calendarDay.add(Calendar.DATE, 1);
         }

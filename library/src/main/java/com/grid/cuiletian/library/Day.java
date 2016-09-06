@@ -6,15 +6,8 @@ package com.grid.cuiletian.library;
 public class Day {
     private String date; // yyyy-mm-dd格式，可用来排序
     private String dateDisplay; // 用来展示，例如"7-29", "今天", "圣诞节"
-    private boolean isToday;
     private String dayOfWeek;
     private boolean isHoliday;
-
-    public Day() {
-        date = "2000-01-01";
-        dateDisplay = "01-01";
-        dayOfWeek = "一";
-    }
 
     public String getDate() {
         return date;
@@ -30,14 +23,6 @@ public class Day {
 
     public void setDateDisplay(String dateDisplay) {
         this.dateDisplay = dateDisplay;
-    }
-
-    public boolean isToday() {
-        return isToday;
-    }
-
-    public void setIsToday(boolean isToday) {
-        this.isToday = isToday;
     }
 
     public String getDayOfWeek() {

@@ -213,7 +213,6 @@ public class HeaderGridView extends RelativeLayout {
         // 左侧日期文字和分割线等
         for (int dayNumber = aboveDaysWithGaps; dayNumber <= aboveDaysWithGaps + mNumberOfVisibleDays + 1; dayNumber++) {
 
-            boolean isToday = false;
             //分割线
             canvas.drawRect(0, startPixel + mHeaderColumnHeight, mHeaderColumnWidth, startPixel + mHeaderColumnHeight + mHorizontalDivider, mStrokePainter);
 
@@ -278,10 +277,10 @@ public class HeaderGridView extends RelativeLayout {
         //左侧和上方也可以滑动
         boolean s;
         if (offsetX > 0) {
-            ev.offsetLocation(-100000, -100000);
+            ev.offsetLocation(-mHeaderColumnWidth, -mHeaderColumnWidth);//防止gridView之外的Click时间定位到gridView上
             s = grid.dispatchTouchEvent(ev);
         } else if (offsetY > 0) {
-            ev.offsetLocation(-100000, -100000);
+            ev.offsetLocation(-mHeaderRowHeight, -mHeaderRowHeight);
             s = myscrollView.dispatchTouchEvent(ev);
         } else {
             s = super.dispatchTouchEvent(ev);
